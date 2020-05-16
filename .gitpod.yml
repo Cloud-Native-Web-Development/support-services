@@ -5,3 +5,7 @@ image:
 tasks:
   - init: npm install
     command: npm run bootstrap
+
+vscode:
+  extensions:
+    - axetroy.vscode-deno@3.7.0:YlA2jgY/k6sHhu6khQB+gw==
