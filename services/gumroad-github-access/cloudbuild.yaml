@@ -8,6 +8,7 @@ steps:
         "gcr.io/$PROJECT_ID/github.com/cloud-native-web-development/support-services-gumroad-github-access:$COMMIT_SHA",
         ".",
       ]
+    dir: "services/gumroad-github-access"
   # push the container image to Artifact Registry
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -15,6 +16,7 @@ steps:
         "push",
         "gcr.io/$PROJECT_ID/github.com/cloud-native-web-development/support-services-gumroad-github-access:$COMMIT_SHA",
       ]
+    dir: "services/gumroad-github-access"
   # Deploy container image to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args:
