@@ -157,7 +157,8 @@ const processWebhook = async ({
       response.status = 400;
     }
   } catch (error) {
-    console.error(error);
+    console.error(JSON.stringify(error));
+    console.error(new Error("test"));
     response.status = 500;
   }
 };
