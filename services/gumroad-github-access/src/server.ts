@@ -122,12 +122,13 @@ const processWebhook = async ({
       console.log("Gumroad payload JSON:", JSON.stringify(webhookPayload));
 
       if (isBadRequest(webhookPayload.seller_id)) {
-        throw new Error(`Bad actors at play. Request payload: ${body.value.toString()}; Request headers: ${Array.from(
-          request.headers.entries()
-        )
-          .map((entry) => `${entry[0]}: ${entry[1]}`)
-          .join(", ")}
-        `);
+        throw new Error(
+          `Bad actors at play. Request payload: ${body.value.toString()}; Request headers: ${Array.from(
+            request.headers.entries()
+          )
+            .map((entry) => `${entry[0]}: ${entry[1]}`)
+            .join(", ")}`
+        );
       }
 
       const gitHubUsername = await findGitHubUserByEmail(webhookPayload.email);
