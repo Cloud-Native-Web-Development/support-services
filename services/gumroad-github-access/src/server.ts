@@ -151,14 +151,15 @@ const processWebhook = async ({
           `User with email "${webhookPayload.email}" and GitHub username "${gitHubUsername}" added to the GitHub team.`
         );
       }
-
-      response.status = 200;
-    } else {
-      response.status = 400;
     }
   } catch (error) {
     console.error(new Error(error.message));
-    response.status = 500;
+  } finally {
+    // Anything other than 200 forces Gumroad to retry. No need to retry.
+    // The most likely cause for an error is when the user's Gumroad email
+    // doesn't match their GitHub email. In that case, Mike will manually
+    // reach out to the buyer to give them access.
+    response.status = 200;
   }
 };
 
