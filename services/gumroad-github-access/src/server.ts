@@ -119,7 +119,7 @@ const processWebhook = async ({
       console.log("Gumroad payload string:", body.value.toString());
 
       const webhookPayload = convertFormPayloadToJson(body.value);
-      console.log("Gumroad payload JSON:", webhookPayload);
+      console.log("Gumroad payload JSON:", JSON.stringify(webhookPayload));
 
       if (isBadRequest(webhookPayload.seller_id)) {
         throw new Error(`Bad actors at play:
@@ -157,8 +157,7 @@ const processWebhook = async ({
       response.status = 400;
     }
   } catch (error) {
-    console.error(JSON.stringify(error));
-    console.error(new Error("test"));
+    console.error(new Error(error));
     response.status = 500;
   }
 };
