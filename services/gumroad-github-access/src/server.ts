@@ -123,11 +123,14 @@ const processWebhook = async ({
 
       if (isBadRequest(webhookPayload.seller_id)) {
         throw new Error(`Bad actors at play:
-        Request headers: ${Array.from(request.headers.entries()).map(
-          (entry) =>
-            `
+        Request payload: ${body.value.toString()}
+        Request headers: ${Array.from(request.headers.entries())
+          .map(
+            (entry) =>
+              `
           ${entry[0]}: ${entry[1]}`
-        )}
+          )
+          .join("\n")}
         `);
       }
 
@@ -157,7 +160,7 @@ const processWebhook = async ({
       response.status = 400;
     }
   } catch (error) {
-    console.error(new Error(error));
+    console.error(new Error(error.message));
     response.status = 500;
   }
 };
