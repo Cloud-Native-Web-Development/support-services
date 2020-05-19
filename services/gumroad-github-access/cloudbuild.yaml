@@ -31,9 +31,6 @@ steps:
       - "managed"
       - "--allow-unauthenticated"
       - "--set-env-vars"
-      - "GITHUB_TOKEN=$GITHUB_TOKEN,GUMROAD_SELLER_ID=$GUMROAD_SELLER_ID"
-    env:
-      - "GITHUB_TOKEN=${_GITHUB_TOKEN}"
-      - "GUMROAD_SELLER_ID=${_GUMROAD_SELLER_ID}"
+      - "GITHUB_TOKEN=$_GITHUB_TOKEN,GUMROAD_SELLER_ID=$_GUMROAD_SELLER_ID"
 images:
   - "gcr.io/$PROJECT_ID/github.com/cloud-native-web-development/support-services-gumroad-github-access:$COMMIT_SHA"
