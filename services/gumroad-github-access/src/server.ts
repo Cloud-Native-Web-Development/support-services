@@ -44,6 +44,9 @@ const convertFormPayloadToJson = (
   email: formValues.get("email") || "",
   refunded: formValues.get("refunded") === "true",
   seller_id: formValues.get("seller_id") || "",
+  custom_fields: {
+    github_username: formValues.get("github_username"),
+  },
 });
 
 /**
@@ -131,9 +134,15 @@ const processWebhook = async ({
         );
       }
 
-      const gitHubUsername = await findGitHubUserByEmail(webhookPayload.email);
-      console.log("GitHub username:", gitHubUsername);
+      let gitHubUsername = webhookPayload.custom_fields.github_username;
+      if (!gitHubUsername) {
+        console.log(
+          "GitHub username custom field not available. Searching on GitHub..."
+        );
+        gitHubUsername = await findGitHubUserByEmail(webhookPayload.email);
+      }
 
+      console.log("GitHub username:", gitHubUsername);
       if (!gitHubUsername) {
         throw new Error(
           `GitHub user for email "${webhookPayload.email}" could not be found.`
